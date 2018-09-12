@@ -4,13 +4,12 @@ const path = require("path");
 
 function areUnitTestFilesPresent(files, repoUrl) {
   const testRegexFile = /\.?test\.?/
-  const specRegexFile = /\_?spec\.?/
   
   return files
     .map(file => file.blob_url)
     .map(url => path.dirname(url))
     .map(url => url.substring(repoUrl.length))
-    .some(url => (url.match(specRegexFile) || url.match(testRegexFile)));
+    .some(url => (url.includes("spec") || url.includes("cypress") || url.match(testRegexFile)));
 }
 
 function areNotExcludedFilesPresent(file, excludedFilesArray){
